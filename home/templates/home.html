@@ -13,10 +13,11 @@
     <p class="text-center">Explore the realms of technology and innovation with us.</p>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <form>
+        <form action={% url "home" %} method='POST'>
+          {% csrf_token %}
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter your username">
+            <input type="text" class="form-control" name="username" placeholder="Enter your username">
           </div>
           <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </form>
