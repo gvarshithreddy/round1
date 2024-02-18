@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from django.shortcuts import render
 
 # Create your views here.
@@ -6,32 +7,27 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 import random as r
 from django.contrib import messages
+from home.helper import *
+from home.models import Players
 
 
 # Create your views here.
-pageno = -1
 def ch3(request):
-  global pageno
-  if pageno == -1:
-    pageno = r.randint(1,3)
-
-  # post request
   if request.method == 'POST':
-    messages.success(request, "Thanks for playing!")
-    match pageno:
-      case 1:
-        name = request.POST['name']
-        print(name)
-        return HttpResponseRedirect('/')
-      case 2:
-        name = request.POST['name']
-        print(name)
-        return HttpResponseRedirect('/')
-      case 3: 
-        name = request.POST['name']
-        print(name)
-        return HttpResponseRedirect('/')
-  
-  # get request
-  pageno = r.randint(1,3)
-  return render(request, f'ch3_{pageno}.html', {'pageno': pageno})
+    user = Players.objects.get(id=request.COOKIES['id'])
+    if request.POST['password'] == user.password:
+      messages.success(request, 'Correct Answer! You have finished the game!!')
+      user.end_time = datetime.now(timezone.utc)
+      user.time_taken = get_overtime_application_minutes(user.start_time, user.end_time)
+      user.save()
+      response = HttpResponseRedirect('/')
+      response.delete_cookie('id')
+      return response
+    else:
+      messages.error(request, 'Wrong Answer! Try Again')
+      return HttpResponseRedirect('/ch3/')
+  try:
+    user = Players.objects.get(id=request.COOKIES['id'])
+    return render(request, f'ch3_{user.clue3}.html', {'pageno': user.clue3})
+  except:
+    return HttpResponse("You are not authorized to view this page")

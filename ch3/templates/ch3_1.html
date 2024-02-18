@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ch3 | page 1</title>
-</head>
-<body>
-  <h1>ch3 | Page 1</h1>
-  <form action={% url "ch3" %} method="POST">
-    {% csrf_token %}
-    <input type="text" name="name" placeholder="Enter your name">
-    <input type="submit" value="Submit">
-  </form>
-</body>
-</html> 
+{% extends "ch3_base.html" %}
+{% load static %}
+
+{% block content %}
+page 1
+{% endblock content %}

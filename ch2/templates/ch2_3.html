@@ -1,16 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ch2 | page 1</title>
-</head>
-<body>
-  <h1>ch2 | Page 1</h1>
-  <form action={% url "ch2" %} method="POST">
-    {% csrf_token %}
-    <input type="text" name="name" placeholder="Enter your name">
-    <input type="submit" value="Submit">
+
+{% extends "ch2_base.html" %}
+{% load static %}
+    {% block head %}
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          background-image: {% static "gdsc.webp" %};
+          background-size: cover;
+          background-position: center;
+      }
+      
+      .container {
+          background-color: rgba(255, 255, 255, 0.8);
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          max-width: 400px;
+          width: 100%;
+          position: relative;
+          margin-bottom: 20px;
+      }
+
+      h1 {
+          color: #4285F4;
+      }
+
+      p {
+          color: #333333;
+      }
+
+      
+      .hidden {
+          position: absolute;
+          left: -9999px;
+      }
+
+      
+      .gdsc-logo {
+          width: 100px;
+          margin-bottom: 20px;
+      }
+
+      
+      .floating-word {
+          position: absolute;
+          color: black;
+          font-size: 20px;
+          white-space: nowrap;
+      }
+
+      
+      .answer-box {
+          margin-bottom: 10px;
+      }
+
+      .answer-box input[type="text"] {
+          padding: 12px;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          width: 80%; 
+      }
+
+      
+      .submit-box {
+          text-align: center;
+      }
+
+      .submit-box input[type="submit"] {
+          padding: 10px 16px; 
+          border-radius: 4px;
+          background-color: #4285F4;
+          color: white;
+          border: none;
+          cursor: pointer;
+      }
+  </style>
+  {% endblock head %}
+    
+{% block content %}
+<div class="container">
+  <img src={% static "gdsc.webp" %} alt="GDSC Logo" class="gdsc-logo">
+  <h1>Welcome to the Hidden Word Challenge</h1>
+  <p>Can you find the hidden word?</p>
+
+  <p class="hidden">geekygaala</p>
+</div>
+
+
+<div class="answer-box">
+  <input type="text" id="answer-input" placeholder="Enter your answer">
+</div>
+
+
+<div class="submit-box">
+  <form id="answer-form">
+      <input type="submit" value="Submit">
   </form>
-</body>
-</html>
+</div>
+
+<script>
+  const words = ["gdsc", "google", "coding", "01100111 01100100 01110011 01100011", "byte", "find me","byee ","TAYLOR SWIFT","15","STYLE","delhi","softy","html","port","gdsc_cbit","googlecloud"];
+
+  function getRandomPosition() {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      return { x, y };
+  }
+
+  function createFloatingWord(word) {
+      const { x, y } = getRandomPosition();
+      const wordElement = document.createElement('div');
+      wordElement.textContent = word;
+      wordElement.classList.add('floating-word');
+      wordElement.style.left = x + 'px';
+      wordElement.style.top = y + 'px';
+      document.body.appendChild(wordElement);
+
+      setTimeout(() => {
+          wordElement.remove();
+      }, 5000); 
+
+    
+      wordElement.style.color = "black";
+    
+      wordElement.style.fontSize = "20px";
+  }
+
+  
+  setInterval(() => {
+      const randomWord = words[Math.floor(Math.random() * words.length)];
+      createFloatingWord(randomWord);
+  }, 1000); 
+
+
+  document.getElementById("answer-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const answer = document.getElementById("answer-input").value.trim();
+      const hiddenWord = document.querySelector(".hidden").textContent.trim();
+      if (answer === hiddenWord) {
+          alert("Congratulations! You found the hidden word!");
+      } else {
+          alert("Sorry, try again!");
+      }
+      
+      document.getElementById("answer-input").value = "";
+  });
+</script>
+{% endblock content %}
+    

@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="container mt-5">
+    {% for message in messages %}{{message}}{% endfor %}
     <hr>
     <h2 class="text-center">Welcome to Digital Odyssey</h2>
     <p class="text-center">Explore the realms of technology and innovation with us.</p>
@@ -16,8 +17,8 @@
         <form action={% url "home" %} method='POST'>
           {% csrf_token %}
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" placeholder="Enter your username">
+            <label for="rollno">Roll Number</label>
+            <input type="text" class="form-control" name="rollno" placeholder="Enter your Roll Number">
           </div>
           <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </form>

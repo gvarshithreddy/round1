@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clue 1</title>
+  {% block head %}
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom CSS for button alignment */
+    .btn-group-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-top: 1px solid #dee2e6;
+    }
+  </style>
+  {% endblock head %}
+</head>
+<body>
+  <div class='container'>
+    <strong>Instructions</strong>
+  <ul>
+    <li>The answer to the clue 1 is 1st part of the final password, similarly with clue 2 and clue 3</li>
+    <li>Use the clues to get all parts of the password.</li>
+    <li>Combine all parts to get the final password.</li>
+  </ul>
+  {% comment %} warning {% endcomment %}
+  <div class="alert alert-warning" role="alert">
+    <strong>Warning!</strong> The Final Password need not mean anything and may not be a real word.
+  </div>
+
+  <h3>Clue 1:</h3>
+  {% block content %}
+  {% endblock content %}
+  
+  <!-- Buttons Group -->
+  <div class="btn-group-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <a href='/ch1/'>
+            <button type="button" class="btn btn-primary" >Clue 1</button>
+          </a>
+        </div>
+        <div class="col">
+          <a href='/ch2/'>
+            <button type="button" class="btn btn-primary" >Clue 2</button>
+          </a>
+        </div>
+        <div class="col">
+          <a href='/ch3/'>
+            <button type="button" class="btn btn-primary" >Clue 3</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  
+  <!-- Bootstrap JS (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

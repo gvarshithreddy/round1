@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ch1 | page 2</title>
-</head>
-<body>
-  <h1>CH1 | Page 2</h1>
-  
-</body>
-</html>
+{% extends "ch1_base.html" %}
+{% load static %}
+
+
+
+
+{% block content %}
+<p class='mb-3'>The output in words is the first part of the password i.e if output is 0, then 'zero' is in words</p>
+<img src="{% static 'fibonacci.png' %}" alt="Fibonacci Image" style="width:80%">
+
+
+{% endblock content %}
